@@ -147,18 +147,24 @@ public class J2048Game extends JPanel implements KeyListener
       
       //Following algorithm on board....
       for(int row = 0; row < 4; row++){
-          int col = 2;
-          if(game[row][col].getBoxNumber() > 0){
-            
-            if(game[row][col +1].getBoxNumber() == game[row][col].getBoxNumber()
-                || game[row][col +1].getBoxNumber() == 0){
-                    //move the number over to col + 1
-                  int n1 = game[row][col].getBoxNumber();
-                  int n2 = game[row][col+1].getBoxNumber();
-                  game[row][col+1].setBoxNumber(n1 + n2);
-                  game[row][col].setBoxNumber(0);
-            }
-            
+         // int col = 2;
+       
+        // repeat this next process 3 times....
+        for(int i = 0; i < 3; i++) {
+          for(int col = 2; col >=0; col--) {
+              if(game[row][col].getBoxNumber() > 0){
+                
+                      if(game[row][col +1].getBoxNumber() == game[row][col].getBoxNumber()
+                          || game[row][col +1].getBoxNumber() == 0){
+                              //move the number over to col + 1
+                            int n1 = game[row][col].getBoxNumber();
+                            int n2 = game[row][col+1].getBoxNumber();
+                            game[row][col+1].setBoxNumber(n1 + n2);
+                            game[row][col].setBoxNumber(0);
+                      }
+                
+              }
+          } 
           }
         
         repaint();
