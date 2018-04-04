@@ -15,12 +15,14 @@ public class GameBox
       
       private Color[][] colorList = new Color[12][2];
       
-      int boxW, boxH;
-      int boxXLoc, boxYLoc;
-      int boxNumber;
-      int boxColorIndex;   //new variable added to give the
-      int textHeight = 75;
-      Font myFont = new Font("Arial", Font.BOLD, textHeight);
+      private int boxW, boxH;
+      private int boxXLoc, boxYLoc;
+      private int boxNumber;
+      private int boxColorIndex;   //new variable added to give the
+      private int textHeight = 75;
+      private Font myFont = new Font("Arial", Font.BOLD, textHeight);
+      
+      private boolean merge  = false;  //MAKE THIS VARIABLE
   
   
       public GameBox(int x, int y, int w, int h){
@@ -75,6 +77,9 @@ public class GameBox
         colorList[11][0] = new Color( 255, 58, 66);
         colorList[11][1] = new Color( 251, 246, 243);         
       }
+      
+      
+
     
       
       public void drawBox(Graphics g){
@@ -108,12 +113,17 @@ public class GameBox
       {
           boxNumber = newNum;
           boxColorIndex++;
+          
       }
       
       public void doubleIt()
       {
           boxNumber *= 2;
-          boxColorIndex++;
+          
+          this.setMyColorIndex();
+         //s didMergeOnTurn = true;
+          
+          
       }
       
       
@@ -123,11 +133,60 @@ public class GameBox
       }
       
       public void setBoxNumber(int newNumber){
-           boxNumber = newNumber;
-           boxColorIndex++;
-           if(boxNumber == 0){
-             boxColorIndex = 0;
+        
+           if(boxNumber !=0 && newNumber == (boxNumber * 2)){
+             merge = true;
            }
+           boxNumber = newNumber;
+           
+           
+           setMyColorIndex();
       }
+      
+      public void setMyColorIndex(){
+        
+        if( boxNumber == 0)  boxColorIndex = 0;
+        if( boxNumber == 2)  boxColorIndex = 1;
+        if( boxNumber == 4)  boxColorIndex = 2;
+        if( boxNumber == 8)  boxColorIndex = 3;
+        if( boxNumber == 16)  boxColorIndex = 4;
+        if( boxNumber == 32)  boxColorIndex = 5;
+        if( boxNumber == 64)  boxColorIndex = 6;
+        if( boxNumber == 128)  boxColorIndex = 7;
+        if( boxNumber == 256)  boxColorIndex = 8;
+        if( boxNumber == 512)  boxColorIndex = 9;
+        if( boxNumber == 1024)  boxColorIndex = 10;
+        if( boxNumber == 2048)  boxColorIndex = 11;
+        
+        
+        
+        
+      }
+      
+      
+      
+      // this is solve the color problem
+      public int getColorIndexNumber(){
+        return boxColorIndex;
+      }
+      
+      public void setColorIndexNumber(int newIndex){
+         boxColorIndex = newIndex;
+      }
+      
+      
+      
+      
+    // methods to handle the merge flag  
+      public boolean checkMerge(){
+          return merge;
+      }
+      
+      public void setMerge(boolean newVal){
+               merge = newVal;
+      }
+
+      
+      
 
 }
